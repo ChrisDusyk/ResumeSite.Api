@@ -27,6 +27,26 @@ type WorkExperience =
       EndDate: DateTime option
       Description: string }
 
+type Reference =
+    { Name: string
+      Phone: string option
+      Email: string option }
+
+type Education =
+    { InstituteName: string
+      StartDate: DateTime
+      EndDate: DateTime option
+      Certification: string
+      InstituteLocation: string }
+
+type AdditionalInformation =
+    { Languages: string seq
+      Interests: string seq }
+
 type Resume =
     { Intro: string
-      WorkExperience: WorkExperience seq }
+      WorkExperience: WorkExperience seq
+      Skills: string seq
+      References: Reference seq
+      Education: Education seq
+      AdditionalInformation: AdditionalInformation }
