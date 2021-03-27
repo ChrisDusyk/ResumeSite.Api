@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ResumeSite.Api", "ResumeSite.Api\ResumeSite.Api.fsproj", "{031CBBD1-B390-4E46-AC47-2313880EBE02}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ResumeSite.Api.Domain", "ResumeSite.Api.Domain\ResumeSite.Api.Domain.fsproj", "{7A28414F-B0EB-478E-B09D-E4E8D907CB29}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ResumeSite.Api", "ResumeSite.Api\ResumeSite.Api.fsproj", "{031CBBD1-B390-4E46-AC47-2313880EBE02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

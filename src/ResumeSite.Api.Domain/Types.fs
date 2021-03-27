@@ -1,4 +1,4 @@
-﻿module Types
+﻿module Domain.Types
 
 open System
 
