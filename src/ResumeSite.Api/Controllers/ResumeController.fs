@@ -27,7 +27,12 @@ type ResumeController (logger: ILogger<ResumeController>) =
             | Ok r ->
                 let responseResume = r |> mapDomainResumeToResponse
                 return OkObjectResult(responseResume) :> _
-            | Error ex -> return BadRequestObjectResult(ex) :> _
+            | Error ex ->
+                match ex with
+                | Domain.Types.ServiceError.UnexpectedError u ->
+                    let errorMessage = u |> sprintf "Unexpected error retrieving resume: %s"
+                    return this.StatusCode(int HttpStatusCode.InternalServerError, errorMessage) :> _
+                | Domain.Types.ServiceError.ValidationError v -> return BadRequestObjectResult(v) :> _
         }
 
     [<HttpGet("/error")>]
