@@ -24,7 +24,9 @@ type ResumeController (logger: ILogger<ResumeController>) =
         ActionResult.ofAsync <| async {
             let! resume = Domain.Handlers.getResume
             match resume with
-            | Ok r -> return OkObjectResult(r) :> _
+            | Ok r ->
+                let responseResume = r |> mapDomainResumeToResponse
+                return OkObjectResult(responseResume) :> _
             | Error ex -> return BadRequestObjectResult(ex) :> _
         }
 
@@ -33,7 +35,9 @@ type ResumeController (logger: ILogger<ResumeController>) =
         ActionResult.ofAsync <| async {
             let! error = Domain.Handlers.getResumeError
             match error with
-            | Ok r -> return OkObjectResult(r) :> _
+            | Ok r ->
+                let responseResume = r |> mapDomainResumeToResponse
+                return OkObjectResult(responseResume) :> _
             | Error ex ->
                 match ex with
                 | Domain.Types.ServiceError.UnexpectedError u ->
