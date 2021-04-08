@@ -4,6 +4,7 @@ open System
 open System.Collections.Generic
 open System.Linq
 open System.Threading.Tasks
+open System.Threading
 open System.Net
 open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
@@ -19,7 +20,7 @@ type ResumeController (logger: ILogger<ResumeController>) =
     inherit ControllerBase()
 
     [<HttpGet>]
-    member _.Get() =
+    member this.Get(cancellationToken: CancellationToken) =
         ActionResult.ofAsync <| async {
             let! resume = Domain.Handlers.getResume
             match resume with
@@ -28,7 +29,7 @@ type ResumeController (logger: ILogger<ResumeController>) =
         }
 
     [<HttpGet("/error")>]
-    member _.GetError() =
+    member this.GetError(cancellationToken: CancellationToken) =
         ActionResult.ofAsync <| async {
             let! error = Domain.Handlers.getResumeError
             match error with
@@ -37,6 +38,6 @@ type ResumeController (logger: ILogger<ResumeController>) =
                 match ex with
                 | Domain.Types.ServiceError.UnexpectedError u ->
                     let errorMessage = u |> sprintf "Unexpected error retrieving resume: %s"
-                    return UnprocessableEntityObjectResult(errorMessage) :> _
+                    return this.StatusCode(int HttpStatusCode.InternalServerError, errorMessage) :> _
                 | Domain.Types.ServiceError.ValidationError v -> return BadRequestObjectResult(v) :> _
         }
