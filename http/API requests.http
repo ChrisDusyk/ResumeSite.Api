@@ -1,0 +1,11 @@
+@baseUrl = https://localhost:5001
+
+### GET Resume
+
+GET {{baseUrl}}/resume
+Accept: application/json
+
+###
+
+GET {{baseUrl}}/error
+Accept: : application/json
